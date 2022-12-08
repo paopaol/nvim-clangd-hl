@@ -50,7 +50,10 @@ local token_kind_to_highlight_group = {
 M.hl_namespace = vim.api.nvim_create_namespace('nvim-clangd-hl-ns')
 
 function M.get_highlight_callback(bufnr)
-    return function(_, _, result, _)
+    return function(_, result, _, _)
+      if not result then
+      	return
+      end
         vim.api.nvim_buf_clear_namespace(
             bufnr,
             M.hl_namespace,
